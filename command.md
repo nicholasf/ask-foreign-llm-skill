@@ -28,8 +28,8 @@ The LLM runs on the remote node; tool calls execute on the orchestrating
 machine. Use when working against the local codebase.
 
 ```bash
-"${SKILLS_HOME:-$HOME/.agents/skills}/ask-foreign-llm-skill/.venv/bin/python3" \
-  "${SKILLS_HOME:-$HOME/.agents/skills}/ask-foreign-llm-skill/agent.py" \
+"${SKILLS_HOME:-$HOME/.agents/skills}/ask-remote-llm/.venv/bin/python3" \
+  "${SKILLS_HOME:-$HOME/.agents/skills}/ask-remote-llm/agent.py" \
   --cwd <working directory> \
   "<message>"
 ```
@@ -56,8 +56,8 @@ via SSH. Use when the target node has the repo and toolchain but no agent
 runtime. `$AGENT_SSH_USER` must be set.
 
 ```bash
-"${SKILLS_HOME:-$HOME/.agents/skills}/ask-foreign-llm-skill/.venv/bin/python3" \
-  "${SKILLS_HOME:-$HOME/.agents/skills}/ask-foreign-llm-skill/agent.py" \
+"${SKILLS_HOME:-$HOME/.agents/skills}/ask-remote-llm/.venv/bin/python3" \
+  "${SKILLS_HOME:-$HOME/.agents/skills}/ask-remote-llm/agent.py" \
   --ssh-node <hostname> \
   --ssh-cwd <remote working directory> \
   "<message>"
