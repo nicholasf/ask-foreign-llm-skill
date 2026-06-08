@@ -5,9 +5,53 @@ topology; tool calls execute either on the orchestrating machine (bridge local)
 or on a remote node via SSH (bridge SSH).
 
 For fully autonomous agent delegation — where the remote node runs its own
-agent runtime like Hermes or Goose — use
+agent like Hermes or Goose — use
 [ask-foreign-agent-skill](https://github.com/nicholasf/ask-foreign-agent-skill)
 instead.
+
+---
+
+## Examples
+
+### Invoke the skill
+
+```
+/ask-foreign-llm
+```
+
+Or with natural language triggers:
+
+```
+ask pond-qwen to summarise how the auth module works
+let gollum-mistral look at this code and suggest improvements
+what does pond-qwen think about the tradeoffs between X and Y
+```
+
+Output is prefixed with the node name:
+```
+[pond] The auth module uses JWT tokens issued at login...
+[pond:tool] read_file("src/auth/token.py")
+[pond:result] <file contents>
+```
+
+### Bridge local — LLM on remote node, tools run here
+
+The LLM reasons over the task on the remote node; file reads, bash commands, and grep execute on your machine.
+
+```bash
+python3 agent.py --cwd /path/to/project "Summarise how authentication works"
+```
+
+### Bridge SSH — LLM on remote node, tools run on another remote node
+
+The LLM executes tool calls on a separate remote node via SSH. Use when that node has the repo and toolchain but no agent.
+
+```bash
+python3 agent.py \
+  --ssh-node gollum \
+  --ssh-cwd /home/user/code/my-project \
+  "Run the test suite and report failures"
+```
 
 ---
 
@@ -39,6 +83,8 @@ dtv-claude-agent
 source of truth for which nodes are available and what models they are running.
 Before invoking, read the topology to confirm the target node is online and its
 inference server is active.
+
+Nodes are referred to by their **agent handle** — `<machine>-<llm>` or `<machine>-<llm>-<agent>`, e.g. `pond-qwen`, `gollum-mistral`. See [load-topology-skill](https://github.com/nicholasf/load-topology-skill) for the full naming convention.
 
 Set these environment variables to target a node:
 
