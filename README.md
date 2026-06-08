@@ -1,4 +1,4 @@
-# ask-foreign-llm-skill
+# ask-remote-llm
 
 Drive a remote LLM as an interactive agent. The LLM runs on a node in your
 topology; tool calls execute on the orchestrating machine.
@@ -15,7 +15,7 @@ instead.
 ### Invoke the skill
 
 ```
-/ask-foreign-llm
+/ask-remote-llm
 ```
 
 Or with natural language triggers:
